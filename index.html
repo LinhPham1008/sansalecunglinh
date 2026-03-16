@@ -5,58 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tạo Link Shopee - Săn Sale Cùng Linh</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background-color: #fce4dc; 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            padding-top: 40px;
-        }
+        body { font-family: Arial, sans-serif; background-color: #fce4dc; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding-top: 40px; }
         .header-title { text-align: center; margin-bottom: 20px; }
         .header-title h1 { color: #ee4d2d; font-size: 24px; margin: 0 0 10px 0; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .badge { background-color: #f8c8b9; color: #ee4d2d; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: bold;}
-        
         .container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); width: 90%; max-width: 500px; }
-        
         .input-group { display: flex; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; margin-bottom: 15px;}
         .input-group input { flex: 1; padding: 12px; border: none; outline: none; font-size: 14px; }
         .input-group .paste-btn { background: #f8f9fa; border: none; border-left: 1px solid #ddd; padding: 0 15px; cursor: pointer; color: #555; }
-        
         .btn-generate { width: 100%; padding: 14px; background-color: #ee4d2d; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.2s; }
         .btn-generate:hover { background-color: #d73a1c; }
-
-        /* Khung hiển thị kết quả y hệt ảnh */
-        .result-card {
-            border: 1.5px solid #ee4d2d;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-            display: none; /* Ẩn đi khi chưa tạo link */
-        }
+        .result-card { border: 1.5px solid #ee4d2d; border-radius: 8px; padding: 15px; margin-top: 20px; display: none; }
         .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .status-icon { color: #00bfa5; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; }
         .btn-copy-small { background-color: #ee4d2d; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
-        
-        textarea {
-            width: 100%;
-            border: none;
-            resize: none;
-            color: #555;
-            font-size: 13px;
-            font-family: monospace;
-            outline: none;
-            word-break: break-all;
-        }
-
-        /* 2 Nút Mua ngay & Chia sẻ */
+        textarea { width: 100%; border: none; resize: none; color: #555; font-size: 13px; font-family: monospace; outline: none; word-break: break-all; }
         .action-buttons { display: flex; gap: 10px; margin-top: 15px; display: none; }
         .action-buttons button { flex: 1; padding: 12px; border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; font-size: 14px; }
         .btn-buy { background-color: #00bfa5; }
         .btn-share { background-color: #3b5998; }
-
         .instructions { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 25px; font-size: 13px; line-height: 1.6; color: #333;}
         .instructions strong { color: #0056b3; display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 14px;}
         .instructions ol { padding-left: 20px; margin: 0; }
@@ -72,7 +39,7 @@
         <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px; color: #333;">🔒 Link sản phẩm Shopee</div>
         <div class="input-group">
             <input type="text" id="originalLink" placeholder="Dán link Shopee vào đây...">
-            <button class="paste-btn">📋</button>
+            <button class="paste-btn" onclick="document.getElementById('originalLink').value = ''">❌ Xóa</button>
         </div>
         
         <button class="btn-generate" onclick="generateLink()">🪄 Tạo Link Ngay</button>
@@ -87,54 +54,4 @@
 
         <div class="action-buttons" id="actionButtons">
             <button class="btn-buy" onclick="openLink()">🛒 Mua Ngay</button>
-            <button class="btn-share" onclick="copyLink()">🔗 Chia sẻ</button>
-        </div>
-
-        <div class="instructions">
-            <strong>ℹ️ Hướng dẫn</strong>
-            <ol>
-                <li>Sau khi tạo link, nhấn <strong>Copy</strong>.</li>
-                <li>Dán link dưới bình luận bài đăng hoặc Bio TikTok.</li>
-                <li>Click vào link để mở Shopee sẽ nhận được mã.</li>
-            </ol>
-        </div>
-    </div>
-
-    <script>
-        // Đã gắn sẵn Affiliate ID của bạn
-        const MY_AFF_ID = "17306910164"; 
-        
-        // Cú pháp đặc biệt để mồi thẻ Livestream giúp khách áp mã giảm giá sâu
-        const SUB_ID = "addlivetag-linhpc---"; 
-
-        function generateLink() {
-            var originalLink = document.getElementById("originalLink").value;
-            if(originalLink === "") {
-                alert("Vui lòng dán link Shopee vào ô trống!");
-                return;
-            }
-
-            // Xử lý tạo link theo đúng cấu trúc chuẩn của Shopee
-            var encodedLink = encodeURIComponent(originalLink);
-            var finalAffiliateLink = "https://s.shopee.vn/an_redir?origin_link=" + encodedLink + "&affiliate_id=" + MY_AFF_ID + "&sub_id=" + SUB_ID;
-
-            // Hiển thị kết quả và các nút bấm
-            document.getElementById("affiliateLink").value = finalAffiliateLink;
-            document.getElementById("resultCard").style.display = "block";
-            document.getElementById("actionButtons").style.display = "flex";
-        }
-
-        function copyLink() {
-            var copyText = document.getElementById("affiliateLink");
-            copyText.select();
-            document.execCommand("copy");
-            alert("Đã copy thành công! Giờ mang đi rải link thôi.");
-        }
-
-        function openLink() {
-            var link = document.getElementById("affiliateLink").value;
-            window.open(link, '_blank');
-        }
-    </script>
-</body>
-</html>
+            <button class="btn-share" onclick="
