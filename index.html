@@ -40,26 +40,38 @@
         </div>
     </div>
 
-    <script>
+<script>
+        // Đã gắn chính xác Affiliate ID của bạn
+        const MY_AFF_ID = "17306910164"; 
+        
+        // SUB_ID để đánh dấu đơn hàng đến từ web của bạn
+        const SUB_ID = "web_sansale"; 
+
         function generateLink() {
-            var link = document.getElementById("originalLink").value;
-            if(link === "") {
-                alert("Bạn chưa nhập link kìa!");
+            var originalLink = document.getElementById("originalLink").value;
+            if(originalLink === "") {
+                alert("Vui lòng dán link Shopee vào ô trống!");
                 return;
             }
-            // Code này tạm thời hiển thị mô phỏng. Sẽ cần thay bằng API của Shopee sau.
-            document.getElementById("affiliateLink").value = link + "?aff_id=sancunglinh";
+
+            // Mã hóa link trang đích
+            var encodedLink = encodeURIComponent(originalLink);
+            
+            // Ghép nối tạo thành link Affiliate chính chủ
+            var finalAffiliateLink = "https://s.shopee.vn/an_redir?origin_link=" + encodedLink + "&affiliate_id=" + MY_AFF_ID + "&sub_id=" + SUB_ID;
+
+            document.getElementById("affiliateLink").value = finalAffiliateLink;
         }
 
         function copyLink() {
             var copyText = document.getElementById("affiliateLink");
             if(copyText.value === "") {
-                alert("Chưa có link để copy!");
+                alert("Bạn chưa tạo link!");
                 return;
             }
             copyText.select();
             document.execCommand("copy");
-            alert("Đã copy thành công! Giờ hãy dán vào bài viết của bạn.");
+            alert("Đã copy thành công! Chúc bạn nổ thật nhiều đơn nhé.");
         }
     </script>
 </body>
