@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Link Shopee - Săn Sale Cùng Linh</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #fce4dc; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 90%; max-width: 500px; text-align: center; }
+        h2 { color: #ee4d2d; margin-top: 0; }
+        input[type="text"] { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; outline: none; }
+        input[type="text"]:focus { border-color: #ee4d2d; }
+        button { background-color: #ee4d2d; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; margin-bottom: 10px; transition: 0.3s; }
+        button.copy-btn { background-color: #00bfa5; }
+        button:hover { opacity: 0.9; }
+        .result-box { margin-top: 15px; text-align: left; }
+        .instructions { font-size: 14px; text-align: left; background: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 15px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🔗 Tạo Link Shopee</h2>
+        <p style="color: #555; font-size: 14px;">Công cụ chuyển đổi link Affiliate</p>
+        
+        <input type="text" id="originalLink" placeholder="Dán link Shopee vào đây...">
+        <button onclick="generateLink()">🪄 Tạo Link Ngay</button>
+
+        <div class="result-box">
+            <input type="text" id="affiliateLink" placeholder="Link affiliate sẽ hiện ở đây..." readonly>
+            <button class="copy-btn" onclick="copyLink()">📋 Copy Link</button>
+        </div>
+
+        <div class="instructions">
+            <strong>📌 Hướng dẫn</strong>
+            <ol style="padding-left: 20px; margin-bottom: 0;">
+                <li>Dán link sản phẩm (linh kiện, đồ công nghệ, v.v.) vào ô trên.</li>
+                <li>Nhấn "Tạo Link Ngay".</li>
+                <li>Nhấn "Copy Link" và dán lên Facebook/TikTok.</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function generateLink() {
+            var link = document.getElementById("originalLink").value;
+            if(link === "") {
+                alert("Bạn chưa nhập link kìa!");
+                return;
+            }
+            // Code này tạm thời hiển thị mô phỏng. Sẽ cần thay bằng API của Shopee sau.
+            document.getElementById("affiliateLink").value = link + "?aff_id=sancunglinh";
+        }
+
+        function copyLink() {
+            var copyText = document.getElementById("affiliateLink");
+            if(copyText.value === "") {
+                alert("Chưa có link để copy!");
+                return;
+            }
+            copyText.select();
+            document.execCommand("copy");
+            alert("Đã copy thành công! Giờ hãy dán vào bài viết của bạn.");
+        }
+    </script>
+</body>
+</html>
