@@ -3,99 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tổng hợp Deal & Mã Giảm Giá</title>
+    <title>Tạo Link Shopee</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #fbd6ca; /* Màu nền hồng đào giống ảnh */
             display: flex;
             justify-content: center;
+            padding: 40px 15px;
+            margin: 0;
+            color: #333;
         }
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background-color: #ffffff;
-            min-height: 100vh;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .header {
+
+        /* Phần Header Logo */
+        .page-header {
             text-align: center;
             margin-bottom: 20px;
         }
-        .header h1 {
-            color: #ee4d2d; /* Màu cam đặc trưng của Shopee */
-            font-size: 24px;
+        .page-header h2 {
+            color: #ff5722;
             margin: 0 0 10px 0;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .banner-container {
-            margin-bottom: 25px;
-            text-align: center;
+        .domain-badge {
+            background-color: #ffebd0; /* Màu nền mờ của tên miền */
+            color: #ff5722;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
         }
-        /* Style cho ảnh banner để luôn bo góc và tự động hiển thị đẹp trên mọi màn hình */
-        .banner-container img {
+
+        /* Khung nội dung chính */
+        .container {
+            background-color: #ffffff;
             width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            transition: transform 0.2s ease-in-out;
+            max-width: 450px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
         }
-        .banner-container img:hover {
-            transform: scale(1.02); /* Phóng to nhẹ khi di chuột vào */
+
+        /* Khu vực nhập link */
+        .input-section {
+            padding: 20px;
         }
-        .content {
-            text-align: center;
+        .input-label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .link-button {
-            display: block;
-            width: 100%;
-            padding: 15px;
+        .input-group {
+            display: flex;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
             margin-bottom: 15px;
-            background-color: #ee4d2d;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 16px;
-            transition: background-color 0.2s;
-            box-sizing: border-box;
         }
-        .link-button:hover {
-            background-color: #d73d20;
-        }
-        .footer {
-            margin-top: 30px;
-            text-align: center;
+        .input-group input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            outline: none;
             font-size: 14px;
-            color: #777;
+            color: #555;
+        }
+        .input-group .paste-btn {
+            background: #f9f9f9;
+            border-left: 1px solid #e0e0e0;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #555;
+        }
+        
+        .btn-submit {
+            background-color: #ff5722;
+            color: white;
+            width: 100%;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-submit:hover {
+            background-color: #e64a19;
+        }
+
+        /* Khu vực Hướng dẫn */
+        .instruction-section {
+            background-color: #f4f7f6; /* Màu nền xám xanh nhạt */
+            padding: 20px;
+        }
+        .instruction-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #1a73e8; /* Màu xanh của icon hướng dẫn */
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .instruction-title span {
+            color: #333;
+        }
+        .instruction-list {
+            margin: 0 0 15px 0;
+            padding-left: 0;
+            list-style: none;
+            font-size: 13px;
+            color: #444;
+            line-height: 1.6;
+        }
+        .btn-fb {
+            background-color: white;
+            color: #1a73e8;
+            border: 1px solid #1a73e8;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        /* Khu vực Mã giảm giá / Chèn ảnh */
+        .banner-section {
+            background-color: white;
+            margin: 20px;
+            border-radius: 8px;
+        }
+        .banner-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        /* Style cho ảnh của bạn */
+        .custom-banner-img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: block;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>Săn Deal Khủng Mỗi Ngày</h1>
-        <p>Tổng hợp mã giảm giá và linh kiện PC giá tốt nhất</p>
+<div>
+    <div class="page-header">
+        <h2><i class="fas fa-link"></i> Tạo Link Shopee</h2>
+        <div class="domain-badge">cuongtws.xyz</div>
     </div>
 
-    <div class="banner-container">
-        <a href="LINK_GROUP_CUA_BAN_VAO_DAY" target="_blank">
-            <img src="https://sf-static.upanhlaylink.com/view/image_2026031629a1dfe8bc18a5690348e6a278a31a2d.jpg" alt="Banner Tham Gia Group">
-        </a>
-    </div>
-    <div class="content">
-        <h3>🔥 Deal Hot Hôm Nay 🔥</h3>
+    <div class="container">
         
-        <a href="LINK_SHOPEE_CUA_BAN_1" class="link-button" target="_blank">Deal VGA / Card Màn Hình</a>
-        <a href="LINK_SHOPEE_CUA_BAN_2" class="link-button" target="_blank">Deal CPU / Mainboard</a>
-        <a href="LINK_SHOPEE_CUA_BAN_3" class="link-button" target="_blank">Linh Kiện PC Khác</a>
-    </div>
+        <div class="input-section">
+            <div class="input-label"><i class="fas fa-lock"></i> Link sản phẩm Shopee</div>
+            <div class="input-group">
+                <input type="text" placeholder="Dán link Shopee vào đây...">
+                <div class="paste-btn"><i class="fas fa-paste"></i></div>
+            </div>
+            <button class="btn-submit"><i class="fas fa-pen"></i> Tạo Link Ngay</button>
+        </div>
 
-    <div class="footer">
-        <p>Cập nhật liên tục 24/7. Chúc bạn săn sale thành công!</p>
+        <div class="instruction-section">
+            <div class="instruction-title"><i class="fas fa-info-circle"></i> <span>Hướng dẫn</span></div>
+            <ul class="instruction-list">
+                <li>1. Sau khi tạo link, nhấn <b>Copy Link</b>.</li>
+                <li>2. Dán link dưới bình luận bài đăng này.</li>
+                <li>3. Click vào link để mở Shopee sẽ nhận được mã.</li>
+            </ul>
+            <a href="#" class="btn-fb"><i class="fab fa-facebook"></i> Đến bài đăng Facebook</a>
+        </div>
+
+        <div class="banner-section">
+            <div class="banner-title">Mã giảm giá/hoàn Xu</div>
+            
+            <a href="LINK_GROUP_CUA_BAN" target="_blank">
+                <img src="https://sf-static.upanhlaylink.com/view/image_2026031629a1dfe8bc18a5690348e6a278a31a2d.jpg" alt="Banner Khuyến Mãi" class="custom-banner-img">
+            </a>
+            
+        </div>
     </div>
 </div>
 
